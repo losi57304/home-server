@@ -1,0 +1,7 @@
+services:
+  matterjs-server:
+    image: ghcr.io/matter-js/matterjs-server:1.4.0
+    restart: unless-stopped
+    volumes:
+      - /srv/matterjs-server/data:/data
+    network_mode: host

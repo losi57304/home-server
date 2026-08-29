@@ -1,0 +1,4 @@
+network:
+  listen:
+    - interface: 0.0.0.0
+workers: 4

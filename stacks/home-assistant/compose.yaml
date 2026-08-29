@@ -1,0 +1,8 @@
+services:
+  home-assistant:
+    image: homeassistant/home-assistant:2026.8.3
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /srv/home-assistant/config:/config
+    network_mode: host

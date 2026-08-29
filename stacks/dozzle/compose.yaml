@@ -1,0 +1,15 @@
+services:
+  dozzle:
+    image: amir20/dozzle:v10.7.5
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - dozzle_data:/data
+      - /srv/dozzle/data/users.yaml:/data/users.yaml:ro
+    ports:
+      - 8080:8080
+    environment:
+      - DOZZLE_AUTH_PROVIDER=simple
+
+volumes:
+  dozzle_data:
