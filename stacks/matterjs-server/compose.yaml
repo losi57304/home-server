@@ -3,5 +3,8 @@ services:
     image: ghcr.io/matter-js/matterjs-server:1.4.0
     restart: unless-stopped
     volumes:
-      - /srv/matterjs-server/data:/data
+      - data:/data
     network_mode: host
+
+volumes:
+  data:
