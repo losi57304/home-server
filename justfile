@@ -1,8 +1,8 @@
-mod stacks "scripts/stacks.just"
-mod system "scripts/system.just"
-mod sys "scripts/system.just"
+alias dec := decrypt
+alias enc := encrypt
 
-import "scripts/common.just"
+@decrypt:
+    sops decrypt .enc.env >.env
 
-@default:
-    just --list --list-submodules
+@encrypt:
+    sops encrypt .env >.enc.env
