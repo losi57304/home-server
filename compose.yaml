@@ -45,6 +45,7 @@ services:
     container_name: matterjs-server
     image: ghcr.io/matter-js/matterjs-server:1.4.0
     restart: unless-stopped
+    user: 0:0
     volumes:
       - ./matterjs_server_data:/data
     network_mode: host
