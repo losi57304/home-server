@@ -31,11 +31,11 @@ pages:
 
               - title: Dufs
                 url: https://dufs.ocd.beauty
-                icon: sh:dufs
+                icon: sh:dufs.webp
 
               - title: Gonic
                 url: https://gonic.ocd.beauty
-                icon: sh:gonic
+                icon: sh:gonic.webp
 
           - type: videos
             channels:
