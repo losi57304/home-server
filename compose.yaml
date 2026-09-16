@@ -52,6 +52,7 @@ services:
             type: http
             url: "$$CLOUD_OCD_BEAUTY_URL"
             path: ./sub.yaml
+            filter: "(?i)(expire|traffic|left)"
 
         proxy-groups:
           - name: PROXY
