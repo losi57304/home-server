@@ -55,7 +55,9 @@ services:
 
         proxy-groups:
           - name: PROXY
-            type: select
+            type: url-test
+            url: http://www.gstatic.com/generate_204
+            interval: 300
             use:
               - cloud-ocd-beauty
 
@@ -77,6 +79,7 @@ services:
     environment:
       - HTTP_PROXY=http://127.0.0.1:7890
       - HTTPS_PROXY=http://127.0.0.1:7890
+      - NO_PROXY=localhost,127.0.0.1,*.ocd.beauty
       - WEATHER_LOCATION=${GLANCE_WEATHER_LOCATION}
     network_mode: service:mihomo
     volumes:
