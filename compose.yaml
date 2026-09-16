@@ -36,6 +36,8 @@ services:
     container_name: glance
     image: glanceapp/glance:v0.8.6
     restart: unless-stopped
+    environment:
+      - WEATHER_LOCATION=${GLANCE_WEATHER_LOCATION}
     ports:
       - 8080:8080
     volumes:

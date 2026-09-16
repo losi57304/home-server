@@ -14,6 +14,29 @@ pages:
 
       - size: full
         widgets:
+          - type: search
+            search-engine: duckduckgo
+
+          - type: monitor
+            cache: 1m
+            title: Services
+            sites:
+              - title: Beszel
+                url: https://beszel.ocd.beauty
+                icon: sh:beszel
+
+              - title: Continuwuity
+                url: https://continuwuity.ocd.beauty
+                icon: sh:continuwuity
+
+              - title: Dufs
+                url: https://dufs.ocd.beauty
+                icon: sh:dufs
+
+              - title: Gonic
+                url: https://gonic.ocd.beauty
+                icon: sh:gonic
+
           - type: videos
             channels:
               - UCXuqSBlHAE6Xw-yeJA0Tunw # Linus Tech Tips
