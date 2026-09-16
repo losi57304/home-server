@@ -57,7 +57,7 @@ pages:
       - size: small
         widgets:
           - type: weather
-            location: ${readFileFromEnv:WEATHER_LOCATION}
+            location: ${WEATHER_LOCATION}
             units: metric
             hour-format: 24h
 
