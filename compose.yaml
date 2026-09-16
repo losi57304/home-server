@@ -14,8 +14,8 @@ services:
     ports:
       - 8090:8090
     volumes:
-      - ./beszel_data:/beszel_data
-      - ./beszel_socket:/beszel_socket
+      - /run/beszel:/beszel_socket
+      - /srv/beszel/data:/beszel_data
 
   beszel-agent:
     <<: *default-logging
@@ -28,8 +28,18 @@ services:
       - LISTEN=/beszel_socket/beszel.sock
       - TOKEN=${BESZEL_TOKEN}
     volumes:
+      - /run/beszel:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./beszel_socket:/beszel_socket
+
+  glance:
+    <<: *default-logging
+    container_name: glance
+    image: glanceapp/glance:v0.8.6
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    volumes:
+      - ./glance.yaml:/app/config/glance.yml
 
   home-assistant:
     <<: *default-logging
