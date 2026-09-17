@@ -31,61 +31,17 @@ services:
       - /run/beszel:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock
 
-  mihomo:
-    <<: *default-logging
-    container_name: mihomo
-    image: metacubex/mihomo:v1.19.31
-    restart: unless-stopped
-    environment:
-      - CLOUD_OCD_BEAUTY_URL=${MIHOMO_CLOUD_OCD_BEAUTY_URL}
-    entrypoint:
-      - /bin/sh
-      - -c
-      - |
-        mkdir -p /root/.config/mihomo
-
-        cat <<EOF > /root/.config/mihomo/config.yaml
-        mixed-port: 7890
-
-        proxy-providers:
-          cloud-ocd-beauty:
-            type: http
-            url: "$$CLOUD_OCD_BEAUTY_URL"
-            path: ./sub.yaml
-
-        proxy-groups:
-          - name: PROXY
-            type: url-test
-            url: http://www.gstatic.com/generate_204
-            interval: 300
-            use:
-              - cloud-ocd-beauty
-
-        rules:
-          - MATCH,PROXY
-        EOF
-
-        exec /mihomo -d /root/.config/mihomo
-    volumes:
-      - /srv/mihomo/data:/root/.config/mihomo
-    ports:
-      - 8080:8080
-
   glance:
     <<: *default-logging
     container_name: glance
     image: glanceapp/glance:v0.8.6
     restart: unless-stopped
     environment:
-      - HTTP_PROXY=http://127.0.0.1:7890
-      - HTTPS_PROXY=http://127.0.0.1:7890
-      - NO_PROXY=localhost,127.0.0.1,*.ocd.beauty
       - WEATHER_LOCATION=${GLANCE_WEATHER_LOCATION}
-    network_mode: service:mihomo
+    ports:
+      - 8080:8080
     volumes:
       - ./glance.yaml:/app/config/glance.yml
-    depends_on:
-      - mihomo
 
   home-assistant:
     <<: *default-logging
