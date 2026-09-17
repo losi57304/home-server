@@ -22,19 +22,19 @@ pages:
             title: Services
             sites:
               - title: Beszel
-                url: https://beszel.ocd.beauty
+                url: https://metrics.ocd.beauty
                 icon: sh:beszel
 
               - title: Continuwuity
-                url: https://continuwuity.ocd.beauty
+                url: https://matrix.ocd.beauty
                 icon: sh:continuwuity
 
               - title: Dufs
-                url: https://dufs.ocd.beauty
+                url: https://files.music.ocd.beauty
                 icon: sh:dufs.webp
 
               - title: Gonic
-                url: https://gonic.ocd.beauty
+                url: https://music.ocd.beauty
                 icon: sh:gonic.webp
 
           - type: group
