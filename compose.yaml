@@ -11,8 +11,7 @@ services:
     container_name: beszel
     image: henrygd/beszel:0.19.0
     restart: unless-stopped
-    ports:
-      - 8090:8090
+    network_mode: host
     volumes:
       - /run/beszel:/beszel_socket
       - /srv/beszel/data:/beszel_data
@@ -31,26 +30,23 @@ services:
       - /run/beszel:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock
 
-  glance:
+  homepage:
     <<: *default-logging
-    container_name: glance
-    image: glanceapp/glance:v0.8.6
-    restart: unless-stopped
-    environment:
-      - WEATHER_LOCATION=${GLANCE_WEATHER_LOCATION}
-    ports:
-      - 8080:8080
+    container_name: homepage
+    image: ghcr.io/gethomepage/homepage:latest
+    network_mode: host
     volumes:
-      - ./glance.yaml:/app/config/glance.yml
+      - ./homepage-settings.yaml:/app/config/settings.yaml
+      - /var/run/docker.sock:/var/run/docker.sock:ro
 
   home-assistant:
     <<: *default-logging
     container_name: home-assistant
     image: ghcr.io/home-assistant/home-assistant:2026.9.2
     restart: unless-stopped
+    network_mode: host
     volumes:
       - ./home_assistant_config:/config
-    network_mode: host
 
   matterjs-server:
     <<: *default-logging
@@ -58,6 +54,6 @@ services:
     image: ghcr.io/matter-js/matterjs-server:1.4.0
     restart: unless-stopped
     user: 0:0
+    network_mode: host
     volumes:
       - ./matterjs_server_data:/data
-    network_mode: host
