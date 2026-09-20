@@ -62,7 +62,7 @@ services:
   rathole:
     <<: *default-logging
     container_name: rathole
-    image: rapiz1/rathole:0.5.0
+    image: rapiz1/rathole:v0.5.0
     restart: unless-stopped
     command:
       - --client
