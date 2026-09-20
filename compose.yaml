@@ -30,17 +30,6 @@ services:
       - /run/beszel:/beszel_socket
       - /var/run/docker.sock:/var/run/docker.sock
 
-  homepage:
-    <<: *default-logging
-    container_name: homepage
-    image: ghcr.io/gethomepage/homepage:latest
-    network_mode: host
-    environment:
-      - HOMEPAGE_ALLOWED_HOSTS=192.168.1.7:3000
-    volumes:
-      - ./homepage-config:/app/config
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-
   home-assistant:
     <<: *default-logging
     container_name: home-assistant
@@ -59,3 +48,13 @@ services:
     network_mode: host
     volumes:
       - ./matterjs_server_data:/data
+
+  ollama:
+    <<: *default-logging
+    container_name: ollama
+    image: ollama/ollama:0.34.2
+    restart: unless-stopped
+    ports:
+      - 11434:11434
+    volumes:
+      - /srv/ollama/data:/root/.ollama
