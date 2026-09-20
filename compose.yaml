@@ -6,66 +6,21 @@ x-logging: &default-logging
       max-size: 10m
 
 services:
-  beszel:
-    <<: *default-logging
-    container_name: beszel
-    image: henrygd/beszel:0.19.0
-    restart: unless-stopped
-    network_mode: host
-    volumes:
-      - /run/beszel:/beszel_socket
-      - /srv/beszel/data:/beszel_data
-
-  beszel-agent:
-    <<: *default-logging
-    container_name: beszel-agent
-    image: henrygd/beszel-agent:0.19.0
-    restart: unless-stopped
-    environment:
-      - HUB_URL=http://beszel:8090
-      - KEY=${BESZEL_KEY}
-      - LISTEN=/beszel_socket/beszel.sock
-      - TOKEN=${BESZEL_TOKEN}
-    volumes:
-      - /run/beszel:/beszel_socket
-      - /var/run/docker.sock:/var/run/docker.sock
-
   home-assistant:
     <<: *default-logging
-    container_name: home-assistant
     image: ghcr.io/home-assistant/home-assistant:2026.9.2
-    restart: unless-stopped
+    container_name: home-assistant
     network_mode: host
     volumes:
-      - ./home_assistant_config:/config
+      - /srv/home-assistant/config:/config
+    restart: unless-stopped
 
   matterjs-server:
     <<: *default-logging
-    container_name: matterjs-server
     image: ghcr.io/matter-js/matterjs-server:1.4.0
-    restart: unless-stopped
-    user: 0:0
+    container_name: matterjs-server
     network_mode: host
     volumes:
-      - ./matterjs_server_data:/data
-
-  ollama:
-    <<: *default-logging
-    container_name: ollama
-    image: ollama/ollama:0.34.2
+      - /srv/matter-js/data:/data
+    privileged: true
     restart: unless-stopped
-    ports:
-      - 11434:11434
-    volumes:
-      - /srv/ollama/data:/root/.ollama
-
-  rathole:
-    <<: *default-logging
-    container_name: rathole
-    image: rapiz1/rathole:v0.5.0
-    restart: unless-stopped
-    command:
-      - --client
-      - /app/config.toml
-    volumes:
-      - ./rathole-config.toml:/app/config.toml:ro
