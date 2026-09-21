@@ -22,5 +22,5 @@ services:
     network_mode: host
     volumes:
       - /srv/matter-js/data:/data
-    privileged: true
+    user: 0:0
     restart: unless-stopped
